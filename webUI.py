@@ -358,50 +358,50 @@ with gr.Blocks(
                 with gr.Column():
                     vc_output2 = gr.Audio(label="Output Audio", interactive=False)
 
-        with gr.TabItem("小工具/实验室特性"):
-            gr.Markdown(value="""
-                        <font size=2> So-vits-svc 4.0 小工具/实验室特性</font>
-                        """)
-            with gr.Tabs():
-                with gr.TabItem("静态声线融合"):
-                    gr.Markdown(value="""
-                        <font size=2> 介绍:该功能可以将多个声音模型合成为一个声音模型(多个模型参数的凸组合或线性组合)，从而制造出现实中不存在的声线 
-                                          注意：
-                                          1.该功能仅支持单说话人的模型
-                                          2.如果强行使用多说话人模型，需要保证多个模型的说话人数量相同，这样可以混合同一个SpaekerID下的声音
-                                          3.保证所有待混合模型的config.json中的model字段是相同的
-                                          4.输出的混合模型可以使用待合成模型的任意一个config.json，但聚类模型将不能使用
-                                          5.批量上传模型的时候最好把模型放到一个文件夹选中后一起上传
-                                          6.混合比例调整建议大小在0-100之间，也可以调为其他数字，但在线性组合模式下会出现未知的效果
-                                          7.混合完毕后，文件将会保存在项目根目录中，文件名为output.pth
-                                          8.凸组合模式会将混合比例执行Softmax使混合比例相加为1，而线性组合模式不会
-                        </font>
-                        """)
-                    mix_model_path = gr.Files(label="选择需要混合模型文件")
-                    mix_model_upload_button = gr.UploadButton("选择/追加需要混合模型文件", file_count="multiple")
-                    mix_model_output1 = gr.Textbox(
-                                            label="混合比例调整，单位/%",
-                                            interactive = True
-                                         )
-                    mix_mode = gr.Radio(choices=["凸组合", "线性组合"], label="融合模式",value="凸组合",interactive = True)
-                    mix_submit = gr.Button("声线融合启动", variant="primary")
-                    mix_model_output2 = gr.Textbox(
-                                            label="Output Message"
-                                         )
-                    mix_model_path.change(updata_mix_info,[mix_model_path],[mix_model_output1])
-                    mix_model_upload_button.upload(upload_mix_append_file, [mix_model_upload_button,mix_model_path], [mix_model_path,mix_model_output1])
-                    mix_submit.click(mix_submit_click, [mix_model_output1,mix_mode], [mix_model_output2])
+        # with gr.TabItem("小工具/实验室特性"):
+        #     gr.Markdown(value="""
+        #                 <font size=2> So-vits-svc 4.0 小工具/实验室特性</font>
+        #                 """)
+        #     with gr.Tabs():
+        #         with gr.TabItem("静态声线融合"):
+        #             gr.Markdown(value="""
+        #                 <font size=2> 介绍:该功能可以将多个声音模型合成为一个声音模型(多个模型参数的凸组合或线性组合)，从而制造出现实中不存在的声线 
+        #                                   注意：
+        #                                   1.该功能仅支持单说话人的模型
+        #                                   2.如果强行使用多说话人模型，需要保证多个模型的说话人数量相同，这样可以混合同一个SpaekerID下的声音
+        #                                   3.保证所有待混合模型的config.json中的model字段是相同的
+        #                                   4.输出的混合模型可以使用待合成模型的任意一个config.json，但聚类模型将不能使用
+        #                                   5.批量上传模型的时候最好把模型放到一个文件夹选中后一起上传
+        #                                   6.混合比例调整建议大小在0-100之间，也可以调为其他数字，但在线性组合模式下会出现未知的效果
+        #                                   7.混合完毕后，文件将会保存在项目根目录中，文件名为output.pth
+        #                                   8.凸组合模式会将混合比例执行Softmax使混合比例相加为1，而线性组合模式不会
+        #                 </font>
+        #                 """)
+        #             mix_model_path = gr.Files(label="选择需要混合模型文件")
+        #             mix_model_upload_button = gr.UploadButton("选择/追加需要混合模型文件", file_count="multiple")
+        #             mix_model_output1 = gr.Textbox(
+        #                                     label="混合比例调整，单位/%",
+        #                                     interactive = True
+        #                                  )
+        #             mix_mode = gr.Radio(choices=["凸组合", "线性组合"], label="融合模式",value="凸组合",interactive = True)
+        #             mix_submit = gr.Button("声线融合启动", variant="primary")
+        #             mix_model_output2 = gr.Textbox(
+        #                                     label="Output Message"
+        #                                  )
+        #             mix_model_path.change(updata_mix_info,[mix_model_path],[mix_model_output1])
+        #             mix_model_upload_button.upload(upload_mix_append_file, [mix_model_upload_button,mix_model_path], [mix_model_path,mix_model_output1])
+        #             mix_submit.click(mix_submit_click, [mix_model_output1,mix_mode], [mix_model_output2])
                 
-                with gr.TabItem("模型压缩工具"):
-                    gr.Markdown(value="""
-                        该工具可以实现对模型的体积压缩，在**不影响模型推理功能**的情况下，将原本约600M的So-VITS模型压缩至约200M, 大大减少了硬盘的压力。
-                        **注意：压缩后的模型将无法继续训练，请在确认封炉后再压缩。**
-                    """)
-                    model_to_compress = gr.File(label="模型上传")
-                    compress_model_btn = gr.Button("压缩模型", variant="primary")
-                    compress_model_output = gr.Textbox(label="输出信息", value="")
+        #         with gr.TabItem("模型压缩工具"):
+        #             gr.Markdown(value="""
+        #                 该工具可以实现对模型的体积压缩，在**不影响模型推理功能**的情况下，将原本约600M的So-VITS模型压缩至约200M, 大大减少了硬盘的压力。
+        #                 **注意：压缩后的模型将无法继续训练，请在确认封炉后再压缩。**
+        #             """)
+        #             model_to_compress = gr.File(label="模型上传")
+        #             compress_model_btn = gr.Button("压缩模型", variant="primary")
+        #             compress_model_output = gr.Textbox(label="输出信息", value="")
 
-                    compress_model_btn.click(model_compression, [model_to_compress], [compress_model_output])
+        #             compress_model_btn.click(model_compression, [model_to_compress], [compress_model_output])
                     
                     
     with gr.Tabs():
